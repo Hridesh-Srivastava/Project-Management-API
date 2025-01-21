@@ -20,7 +20,7 @@
                     <p>End Date: <%= project.end_date %></p>
                     <div class="actions">
                         <a href="/edit/<%= project.id %>">Edit</a>
-                        <form action="/api/projects/<%= project.id %>?_method=DELETE" method="POST" style="display:inline;">
+                        <form action="/api/projects/<%= project.id %>/delete" method="POST" style="display:inline;">
                             <button type="submit" class="delete">Delete</button>
                         </form>
                     </div>
@@ -88,7 +88,6 @@
     </script>
 </body>
 </html>
-
 
 
 

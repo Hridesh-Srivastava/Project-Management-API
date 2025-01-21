@@ -187,7 +187,7 @@ app.post("/api/projects", async (req, res) => {
 });
 
 // Handle project updates
-app.patch("/api/projects/:id", async (req, res) => {
+app.post("/api/projects/:id", async (req, res) => {
   try {
     await axios.patch(`${API_URL}/api/projects/${req.params.id}`, req.body);
     res.redirect("/");
@@ -201,7 +201,7 @@ app.patch("/api/projects/:id", async (req, res) => {
 });
 
 // Handle project deletion
-app.delete("/api/projects/:id", async (req, res) => {
+app.post("/api/projects/:id/delete", async (req, res) => {
   try {
     await axios.delete(`${API_URL}/api/projects/${req.params.id}`);
     res.redirect("/");
