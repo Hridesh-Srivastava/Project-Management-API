@@ -127,7 +127,7 @@ app.set("view engine", "ejs");
 // Route to render the main page with projects list
 app.get("/", async (req, res) => {
   try {
-    const response = await axios.get(`${API_URL}/projects`);
+    const response = await axios.get(`${API_URL}/api/projects`);
     res.render("index", { projects: response.data });
   } catch (error) {
     console.error("Error fetching projects:", error.message);
@@ -150,7 +150,7 @@ app.get("/new", (req, res) => {
 // Route to render the 'Edit Project' page
 app.get("/edit/:id", async (req, res) => {
   try {
-    const response = await axios.get(`${API_URL}/projects/${req.params.id}`);
+    const response = await axios.get(`${API_URL}/api/projects/${req.params.id}`);
     res.render("modify", {
       heading: "Edit Project",
       submit: "Update Project",
@@ -168,7 +168,7 @@ app.get("/edit/:id", async (req, res) => {
 // Handle project creation
 app.post("/api/projects", async (req, res) => {
   try {
-    await axios.post(`${API_URL}/projects`, req.body);
+    await axios.post(`${API_URL}/api/projects`, req.body);
     res.redirect("/");
   } catch (error) {
     console.error("Error creating project:", error.message);
@@ -182,7 +182,7 @@ app.post("/api/projects", async (req, res) => {
 // Handle project updates
 app.post("/api/projects/:id", async (req, res) => {
   try {
-    await axios.patch(`${API_URL}/projects/${req.params.id}`, req.body);
+    await axios.patch(`${API_URL}/api/projects/${req.params.id}`, req.body);
     res.redirect("/");
   } catch (error) {
     console.error("Error updating project:", error.message);
@@ -196,7 +196,7 @@ app.post("/api/projects/:id", async (req, res) => {
 // Handle project deletion
 app.get("/api/projects/delete/:id", async (req, res) => {
   try {
-    await axios.delete(`${API_URL}/projects/${req.params.id}`);
+    await axios.delete(`${API_URL}/api/projects/${req.params.id}`);
     res.redirect("/");
   } catch (error) {
     console.error("Error deleting project:", error.message);
