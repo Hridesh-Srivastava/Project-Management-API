@@ -107,6 +107,7 @@ import axios from "axios";
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import methodOverride from "method-override";
 
 dotenv.config();
 
@@ -122,6 +123,7 @@ const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(methodOverride("_method"));
 
 // Set EJS as the view engine
 app.set("views", path.join(__dirname, "views"));
@@ -185,7 +187,7 @@ app.post("/api/projects", async (req, res) => {
 });
 
 // Handle project updates
-app.post("/api/projects/:id", async (req, res) => {
+app.patch("/api/projects/:id", async (req, res) => {
   try {
     await axios.patch(`${API_URL}/api/projects/${req.params.id}`, req.body);
     res.redirect("/");
@@ -199,7 +201,7 @@ app.post("/api/projects/:id", async (req, res) => {
 });
 
 // Handle project deletion
-app.get("/api/projects/delete/:id", async (req, res) => {
+app.delete("/api/projects/:id", async (req, res) => {
   try {
     await axios.delete(`${API_URL}/api/projects/${req.params.id}`);
     res.redirect("/");

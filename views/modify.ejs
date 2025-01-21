@@ -11,7 +11,7 @@
     <div class="container">
         <h1><%= heading %></h1>
         
-        <form action="<%= project ? `/api/projects/${project.id}` : '/api/projects' %>" method="POST">
+        <form action="<%= project ? `/api/projects/${project.id}?_method=PATCH` : '/api/projects' %>" method="POST">
             <label for="name">Project Name:</label>
             <input type="text" id="name" name="name" value="<%= project ? project.name : '' %>" required>
             
