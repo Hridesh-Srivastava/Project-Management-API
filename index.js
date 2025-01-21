@@ -117,11 +117,13 @@ app.use(cors());
 
 // CHALLENGE 1: GET All projects
 app.get("/api/projects", (req, res) => {
+  console.log("Received request for /api/projects");
   res.json(projects);
 });
 
 // CHALLENGE 2: GET a specific project by id
 app.get("/api/projects/:id", (req, res) => {
+  console.log(`Received request for /api/projects/${req.params.id}`);
   const project = projects.find((p) => p.id === Number.parseInt(req.params.id));
   if (!project) return res.status(404).json({ message: "Project not found" });
   res.json(project);
@@ -129,6 +131,7 @@ app.get("/api/projects/:id", (req, res) => {
 
 // CHALLENGE 3: POST a new project
 app.post("/api/projects", (req, res) => {
+  console.log("Received request to create a new project");
   const newId = (lastId += 1);
   const project = {
     id: newId,
@@ -144,6 +147,7 @@ app.post("/api/projects", (req, res) => {
 
 // CHALLENGE 4: PATCH a project when you just want to update one parameter
 app.patch("/api/projects/:id", (req, res) => {
+  console.log(`Received request to update project ${req.params.id}`);
   const project = projects.find((p) => p.id === Number.parseInt(req.params.id));
   if (!project) return res.status(404).json({ message: "Project not found" });
 
@@ -157,6 +161,7 @@ app.patch("/api/projects/:id", (req, res) => {
 
 // CHALLENGE 5: DELETE a specific project by providing the project id.
 app.delete("/api/projects/:id", (req, res) => {
+  console.log(`Received request to delete project ${req.params.id}`);
   const index = projects.findIndex((p) => p.id === Number.parseInt(req.params.id));
   if (index === -1) return res.status(404).json({ message: "Project not found" });
 

@@ -126,8 +126,10 @@ app.set("view engine", "ejs");
 
 // Route to render the main page with projects list
 app.get("/", async (req, res) => {
+  console.log("Received request for /");
   try {
     const response = await axios.get(`${API_URL}/api/projects`);
+    console.log("Fetched projects:", response.data);
     res.render("index", { projects: response.data });
   } catch (error) {
     console.error("Error fetching projects:", error.message);
