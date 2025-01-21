@@ -127,15 +127,6 @@ app.use(bodyParser.json());
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-// Set CSP headers
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-inline' https://vercel.live; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://vercel.live"
-  );
-  next();
-});
-
 // Route to render the main page with projects list
 app.get("/", async (req, res) => {
   console.log("Received request for /");
