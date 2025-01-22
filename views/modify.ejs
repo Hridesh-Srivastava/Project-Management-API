@@ -11,7 +11,12 @@
     <div class="container">
         <h1><%= heading %></h1>
         
-        <form action="<%= project ? `/api/projects/${project.id}?_method=PATCH` : '/api/projects' %>" method="POST">
+        <!-- Updated form to use proper method handling -->
+        <form action="<%= project ? `/api/projects/${project.id}` : '/api/projects' %>" method="POST">
+            <% if (project) { %>
+                <input type="hidden" name="_method" value="PATCH">
+            <% } %>
+            
             <label for="name">Project Name:</label>
             <input type="text" id="name" name="name" value="<%= project ? project.name : '' %>" required>
             
@@ -26,6 +31,7 @@
             
             <button type="submit" class="button"><%= submit %></button>
         </form>
+
 
         <a href="/" class="back-link">← Back to Projects</a>
     </div>
