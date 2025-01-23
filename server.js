@@ -104,7 +104,6 @@
 import express from "express"
 import path from "path"
 import { fileURLToPath } from "url"
-import fetch from "node-fetch"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -113,6 +112,7 @@ const app = express()
 const port = process.env.PORT || 3000
 const API_URL = process.env.API_URL || "http://localhost:5000"
 
+// Middleware
 app.use(express.static(path.join(__dirname, "public")))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -123,10 +123,15 @@ app.set("views", path.join(__dirname, "views"))
 app.get("/", async (req, res) => {
   try {
     const response = await fetch(`${API_URL}/api/projects`)
+    if (!response.ok) throw new Error("Failed to fetch projects")
     const projects = await response.json()
-    res.render("index", { projects, error: null })
+    res.render("index", { projects: projects || [], error: null })
   } catch (error) {
-    res.render("index", { projects: [], error: "Failed to fetch projects" })
+    console.error("Error fetching projects:", error)
+    res.render("index", {
+      projects: [],
+      error: { message: "Failed to fetch projects", details: error.message },
+    })
   }
 })
 
@@ -143,6 +148,7 @@ app.get("/new", (req, res) => {
 app.get("/edit/:id", async (req, res) => {
   try {
     const response = await fetch(`${API_URL}/api/projects/${req.params.id}`)
+    if (!response.ok) throw new Error("Project not found")
     const project = await response.json()
     res.render("modify", {
       heading: "Edit Project",
@@ -152,7 +158,7 @@ app.get("/edit/:id", async (req, res) => {
   } catch (error) {
     res.render("error", {
       message: "Project not found",
-      details: "The requested project does not exist.",
+      details: error.message,
     })
   }
 })
@@ -162,10 +168,22 @@ app.post("/api/projects", async (req, res) => {
   try {
     const response = await fetch(`${API_URL}/api/projects`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(req.body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: req.body.name,
+        description: req.body.description,
+        start_date: req.body.start_date,
+        end_date: req.body.end_date,
+      }),
     })
-    await response.json()
+
+    if (!response.ok) {
+      const error = await response.text()
+      throw new Error(error)
+    }
+
     res.redirect("/")
   } catch (error) {
     res.render("error", {
@@ -180,10 +198,22 @@ app.post("/api/projects/:id", async (req, res) => {
   try {
     const response = await fetch(`${API_URL}/api/projects/${req.params.id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(req.body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: req.body.name,
+        description: req.body.description,
+        start_date: req.body.start_date,
+        end_date: req.body.end_date,
+      }),
     })
-    await response.json()
+
+    if (!response.ok) {
+      const error = await response.text()
+      throw new Error(error)
+    }
+
     res.redirect("/")
   } catch (error) {
     res.render("error", {
@@ -196,9 +226,15 @@ app.post("/api/projects/:id", async (req, res) => {
 // Delete a project
 app.get("/api/projects/delete/:id", async (req, res) => {
   try {
-    await fetch(`${API_URL}/api/projects/${req.params.id}`, {
+    const response = await fetch(`${API_URL}/api/projects/${req.params.id}`, {
       method: "DELETE",
     })
+
+    if (!response.ok) {
+      const error = await response.text()
+      throw new Error(error)
+    }
+
     res.redirect("/")
   } catch (error) {
     res.render("error", {
@@ -213,8 +249,4 @@ app.listen(port, () => {
 })
 
 export default app
-
-
-
-
 
