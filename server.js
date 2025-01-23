@@ -151,23 +151,8 @@ const __dirname = path.dirname(__filename)
 const app = express()
 const port = process.env.PORT || 3000
 
-// Explicitly set the public directory path
-const publicPath = path.join(__dirname, "public")
-
-// Serve static files with caching disabled in development
-app.use(
-  express.static(publicPath, {
-    etag: false,
-    lastModified: false,
-    setHeaders: (res, path) => {
-      if (path.endsWith(".css")) {
-        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate")
-        res.setHeader("Pragma", "no-cache")
-        res.setHeader("Expires", "0")
-      }
-    },
-  }),
-)
+// Serve static files from the public directory
+app.use("/public", express.static(path.join(__dirname, "public")))
 
 // Middleware
 app.use(express.json())
