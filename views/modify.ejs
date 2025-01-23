@@ -19,10 +19,10 @@
             <textarea id="description" name="description" required><%= project ? project.description : '' %></textarea>
             
             <label for="start_date">Start Date:</label>
-            <input type="date" id="start_date" name="start_date" value="<%= project ? project.start_date.toISOString().split('T')[0] : '' %>" required>
+            <input type="date" id="start_date" name="start_date" value="<%= project ? project.start_date : '' %>" required>
             
             <label for="end_date">End Date:</label>
-            <input type="date" id="end_date" name="end_date" value="<%= project ? project.end_date.toISOString().split('T')[0] : '' %>" required>
+            <input type="date" id="end_date" name="end_date" value="<%= project ? project.end_date : '' %>" required>
             
             <input type="submit" value="<%= submit %>">
         </form>
@@ -90,6 +90,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
