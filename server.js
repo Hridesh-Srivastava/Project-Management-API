@@ -19,10 +19,38 @@ app.set("views", path.join(__dirname, "views"))
 let projects = [
   {
     id: 1,
-    name: "Sample Project",
-    description: "This is a sample project",
-    start_date: "2025-01-01",
-    end_date: "2025-12-31",
+    name: "BlogWise",
+    description: "blogWise a blog website, is a platform where you share insights, ideas, and valuable content on various topics. It is designed to engage readers with well-structured articles, offering a user-friendly experience for exploring and learning.",
+    start_date: "2024-03-04",
+    end_date: "2024-04-30",
+  },
+  {
+    id: 2,
+    name: "Simon Game",
+    description: "Simon Game website is an interactive memory-based game where players test their ability to recall and repeat sequences of colors and sounds. It offers an engaging and fun challenge that progressively increases in difficulty, making it perfect for players of all ages.",
+    start_date: "2024-05-02",
+    end_date: "2024-06-01",
+  },
+  {
+    id: 3,
+    name: "Registration website",
+    description: "Registration website features a complete user authentication system with sign-up and sign-in functionality. It includes a fully developed backend to securely handle user data, ensuring smooth account creation, login, and data management processes. The platform is designed with a focus on security and user experience.",
+    start_date: "2024-05-12",
+    end_date: "2024-06-20",
+  },
+  {
+    id: 4,
+    name: "Drums",
+    description: "Drums Website is an interactive platform where users can explore and play a variety of drum sounds with just a click or keypress. Whether you're a music enthusiast or just looking to have some fun, the website offers an engaging and immersive drumming experience. With an intuitive interface and responsive controls, it’s the perfect place to unleash your inner drummer.",
+    start_date: "2024-07-01",
+    end_date: "2024-07-28",
+  },
+  {
+    id: 5,
+    name: "My Portfolio",
+    description: "My portfolio website is a showcase of my skills and projects designed to provide a comprehensive view of my work. It highlights my expertise, creative approach, and professional journey, offering an engaging way for visitors to explore my accomplishments and connect with me.",
+    start_date: "2024-08-11",
+    end_date: "2024-09-30",
   },
 ]
 
