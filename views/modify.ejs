@@ -1,112 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= heading %></title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <div class="container">
-        <h1><%= heading %></h1>
-        
-        <form action="<%= project ? `/api/projects/${project.id}` : '/api/projects' %>" method="POST">
-            <label for="name">Project Name:</label>
-            <input type="text" id="name" name="name" value="<%= project ? project.name : '' %>" required>
-            
-            <label for="description">Description:</label>
-            <textarea id="description" name="description" required><%= project ? project.description : '' %></textarea>
-            
-            <label for="start_date">Start Date:</label>
-            <input type="date" id="start_date" name="start_date" value="<%= project ? project.start_date : '' %>" required>
-            
-            <label for="end_date">End Date:</label>
-            <input type="date" id="end_date" name="end_date" value="<%= project ? project.end_date : '' %>" required>
-            
-            <input type="submit" value="<%= submit %>">
-        </form>
-
-        <a href="/" class="back-link">← Back to Projects</a>
-    </div>
-
-    <button class="about-button" onclick="openModal()">About API</button>
-    <button class="theme-switch" onclick="toggleTheme()" aria-label="Toggle theme">
-        <i class="fas fa-sun"></i>
-    </button>
-
-    <div id="aboutModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>About Project Management API</h2>
-            <p>This Project Management API is a simple yet powerful tool for managing projects. It allows users to create, read, update, and delete projects, providing a streamlined interface for project management tasks.</p>
-            <p>Key features include:</p>
-            <ul>
-                <li>Create new projects with name, description, start date, and end date</li>
-                <li>View a list of all projects</li>
-                <li>Edit existing project details</li>
-                <li>Delete projects</li>
-                <li>Responsive design with dark/light theme toggle</li>
-            </ul>
-            <p>This API is built using Node.js, Express, and EJS, demonstrating a full-stack application with server-side rendering.</p>
-        </div>
-    </div>
-
-    <script>
-        function toggleTheme() {
-            const body = document.body;
-            const themeSwitch = document.querySelector('.theme-switch i');
-            body.classList.toggle('dark-theme');
-            if (body.classList.contains('dark-theme')) {
-                themeSwitch.className = 'fas fa-moon';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                themeSwitch.className = 'fas fa-sun';
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
-        // Check for saved theme preference or default to light theme
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            document.querySelector('.theme-switch i').className = 'fas fa-moon';
-        }
-
-        function openModal() {
-            document.getElementById('aboutModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('aboutModal').style.display = 'none';
-        }
-
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('aboutModal')) {
-                closeModal();
-            }
-        }
-    </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= heading %></title>
+    <link rel="icon" href="/images/icon.jpg">
     <link rel="stylesheet" href="/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -150,7 +48,102 @@
                 <li>Edit existing project details</li>
                 <li>Delete projects</li>
                 <li>Responsive design with dark/light theme toggle</li>
-                <li>Enhanced scrollbar for better navigation</li>
+            </ul>
+            <p>This API is built using Node.js, Express, and EJS, demonstrating a full-stack application with server-side rendering.</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeSwitch = document.querySelector('.theme-switch i');
+            body.classList.toggle('dark-theme');
+            if (body.classList.contains('dark-theme')) {
+                themeSwitch.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeSwitch.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            document.querySelector('.theme-switch i').className = 'fas fa-moon';
+        }
+
+        function openModal() {
+            document.getElementById('aboutModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('aboutModal').style.display = 'none';
+        }
+
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('aboutModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= heading %></title>
+    <link rel="icon" href="/images/icon.jpg">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1><%= heading %></h1>
+        
+        <form action="<%= project ? `/api/projects/${project.id}` : '/api/projects' %>" method="POST">
+            <label for="name">Project Name:</label>
+            <input type="text" id="name" name="name" value="<%= project ? project.name : '' %>" required>
+            
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required><%= project ? project.description : '' %></textarea>
+            
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" value="<%= project ? project.start_date : '' %>" required>
+            
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" value="<%= project ? project.end_date : '' %>" required>
+            
+            <input type="submit" value="<%= submit %>">
+        </form>
+
+        <a href="/" class="back-link">← Back to Projects</a>
+    </div>
+
+    <button class="about-button" onclick="openModal()">About API</button>
+    <button class="theme-switch" onclick="toggleTheme()" aria-label="Toggle theme">
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>About Project Management API</h2>
+            <p>This Project Management API is a simple yet powerful tool for managing projects. It allows users to create, read, update, and delete projects, providing a streamlined interface for project management tasks.</p>
+            <p>Key features include:</p>
+            <ul>
+                <li>Create new projects with name, description, start date, and end date</li>
+                <li>View a list of all projects</li>
+                <li>Edit existing project details</li>
+                <li>Delete projects</li>
+                <li>Responsive design with dark/light theme toggle</li>
             </ul>
             <p>This API is built using Node.js, Express, and EJS, demonstrating a full-stack application with server-side rendering.</p>
         </div>
@@ -184,17 +177,28 @@
             document.getElementById('aboutModal').style.display = 'none';
         }
 
-
+        
         window.onclick = function(event) {
             if (event.target == document.getElementById('aboutModal')) {
                 closeModal();
             }
         }
     </script>
-    
+    <footer class="footer">
+        <div class="footer-left">
+            &copy; 2025 | Project Management API
+        </div>
+        <div class="footer-right">
+            <span>Connect with me :</span>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/hridayesh-srivastava-9575901bb/" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://x.com/Hrideshhhh" aria-label="X" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                    <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                  </svg></a>
+                  <a href="https://github.com/Hridesh-Srivastava" aria-label="GitHub" target="_blank"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
- -->
 
-
- 
