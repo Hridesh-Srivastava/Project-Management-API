@@ -11,12 +11,7 @@
     <div class="container">
         <h1><%= heading %></h1>
         
-        <!-- Updated form to use proper method handling -->
         <form action="<%= project ? `/api/projects/${project.id}` : '/api/projects' %>" method="POST">
-            <% if (project) { %>
-                <input type="hidden" name="_method" value="PATCH">
-            <% } %>
-            
             <label for="name">Project Name:</label>
             <input type="text" id="name" name="name" value="<%= project ? project.name : '' %>" required>
             
@@ -24,14 +19,13 @@
             <textarea id="description" name="description" required><%= project ? project.description : '' %></textarea>
             
             <label for="start_date">Start Date:</label>
-            <input type="date" id="start_date" name="start_date" value="<%= project ? project.start_date : '' %>" required>
+            <input type="date" id="start_date" name="start_date" value="<%= project ? project.start_date.toISOString().split('T')[0] : '' %>" required>
             
             <label for="end_date">End Date:</label>
-            <input type="date" id="end_date" name="end_date" value="<%= project ? project.end_date : '' %>" required>
+            <input type="date" id="end_date" name="end_date" value="<%= project ? project.end_date.toISOString().split('T')[0] : '' %>" required>
             
-            <button type="submit" class="button"><%= submit %></button>
+            <input type="submit" value="<%= submit %>">
         </form>
-
 
         <a href="/" class="back-link">← Back to Projects</a>
     </div>
@@ -53,7 +47,6 @@
                 <li>Edit existing project details</li>
                 <li>Delete projects</li>
                 <li>Responsive design with dark/light theme toggle</li>
-                <li>Enhanced scrollbar for better navigation</li>
             </ul>
             <p>This API is built using Node.js, Express, and EJS, demonstrating a full-stack application with server-side rendering.</p>
         </div>
@@ -73,6 +66,7 @@
             }
         }
 
+        // Check for saved theme preference or default to light theme
         const savedTheme = localStorage.getItem('theme') || 'light';
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-theme');
@@ -87,6 +81,7 @@
             document.getElementById('aboutModal').style.display = 'none';
         }
 
+        // Close modal when clicking outside of it
         window.onclick = function(event) {
             if (event.target == document.getElementById('aboutModal')) {
                 closeModal();
@@ -95,6 +90,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
