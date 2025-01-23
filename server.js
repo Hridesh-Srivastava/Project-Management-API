@@ -151,20 +151,16 @@ const __dirname = path.dirname(__filename)
 const app = express()
 const port = process.env.PORT || 3000
 
-// Serve static files from the public directory
-app.use("/public", express.static(path.join(__dirname, "public")))
+// Serve the styles.css file directly from views folder
+app.get("/styles.css", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "styles.css"))
+})
 
 // Middleware
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
-
-// Update CSS path in templates
-app.use((req, res, next) => {
-  res.locals.staticPath = process.env.VERCEL_URL ? "https://" + process.env.VERCEL_URL : ""
-  next()
-})
 
 // In-memory data store
 let projects = [
